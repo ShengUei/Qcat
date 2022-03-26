@@ -12,5 +12,4 @@ public class Member {
     private Date birthday;
     private String mbrImg;
 
-
 }
