@@ -13,7 +13,8 @@ Create Table member(
 	mbrImg Varchar(Max),
 
 	Constraint mbr_mbrId_PK Primary key (mbrId),
-	Constraint mbr_account_UK Unique (account)
+	Constraint mbr_account_UK Unique (account),
+    Constraint mbr_email_UK Unique (email)
 );
 
 Create Table article(

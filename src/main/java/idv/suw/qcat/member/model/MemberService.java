@@ -12,26 +12,26 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Autowired
-    public MemberService(MemberRepository memberDAO) {
-        this.memberRepository = memberDAO;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
-    public boolean checkIsMember(String account, String password) {
-        Optional<Member> member = memberRepository.findByAccount(account);
-        if (member.isPresent()) {
-            long inputPwd = password.hashCode() + member.get().getSalt();
-            if (inputPwd == member.get().getEncrPwd()){
-                return true;
-            }
+    public Optional<Member> checkIsMember(String account, String password) {
+        Optional<Member> memberOptional = memberRepository.findByAccount(account);
+        if (memberOptional.isPresent()
+                && (password.hashCode() + memberOptional.get().getSalt()) == memberOptional.get().getEncrPwd()) {
+            return memberOptional;
         }
-        return false;
+        return Optional.empty();
     }
 
-    public boolean registerNewMember(Member member, String password) {
+    public boolean registerNewMember(Member member) {
+        System.out.println(member.getAccount() + ", " + member.getEmail() + ", " + member.getPassword());
         if (!memberRepository.existsByAccount(member.getAccount())) {
             long salt = Instant.now().toEpochMilli();
-            long encrPwd = password.hashCode() + salt;
+            long encrPwd = member.getPassword().hashCode() + salt;
             member.setEncrPwd(encrPwd);
+            member.setSalt(salt);
             memberRepository.save(member);
             return true;
         }

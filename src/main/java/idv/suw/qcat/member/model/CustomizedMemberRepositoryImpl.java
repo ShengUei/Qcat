@@ -1,8 +1,8 @@
 package idv.suw.qcat.member.model;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.Optional;
 
 public class CustomizedMemberRepositoryImpl implements CustomizedMemberRepository<Member, String> {
@@ -12,24 +12,27 @@ public class CustomizedMemberRepositoryImpl implements CustomizedMemberRepositor
 
     @Override
     public Optional<Member> findByAccount(String account) {
-        Optional<Member> result = Optional.ofNullable(
-                entityManager.createQuery("SELECT m FROM Member m WHERE m.account = :account", Member.class)
-                        .setParameter("account", account)
-                        .getSingleResult());
+        try {
+            return Optional.ofNullable(
+                    entityManager.createQuery("SELECT m FROM Member m WHERE m.account = :account", Member.class)
+                            .setParameter("account", account)
+                            .getSingleResult());
+        } catch (NoResultException e) {
 
-        return result;
+            return Optional.empty();
+        }
     }
 
     @Override
     public boolean existsByAccount(String account) {
-        Optional<Member> result = Optional.ofNullable(
-                entityManager.createQuery("SELECT m FROM Member m WHERE m.account = :account", Member.class)
-                .setParameter("account", account)
-                .getSingleResult());
-
-        if (result.isPresent()) {
-            return true;
+        try {
+            return Optional.ofNullable(
+                    entityManager.createQuery("SELECT m FROM Member m WHERE m.account = :account", Member.class)
+                            .setParameter("account", account)
+                            .getSingleResult()).isPresent();
+        } catch (NoResultException e) {
+            return false;
         }
-        return false;
+
     }
 }

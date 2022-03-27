@@ -11,13 +11,16 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mbrId")
+    @Column(name = "mbrid")
     private Long mbrId;
 
     @Column(name = "account")
     private String account;
 
-    @Column(name = "encrPwd")
+    @Transient
+    private String password;
+
+    @Column(name = "encrpwd")
     private Long encrPwd;
 
     @Column(name = "salt")
@@ -32,18 +35,10 @@ public class Member {
     @Column(name = "birthday")
     private Date birthday;
 
-    @Column(name = "mbrImg")
+    @Column(name = "mbrimg")
     private String mbrImg;
 
     public Member() {
-    }
-
-    public Member(String account, String email, String username, Date birthday, String mbrImg) {
-        this.account = account;
-        this.email = email;
-        this.username = username;
-        this.birthday = birthday;
-        this.mbrImg = mbrImg;
     }
 
     public String getAccount() {
@@ -52,6 +47,14 @@ public class Member {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getEncrPwd() {
