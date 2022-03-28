@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "article")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -21,10 +22,15 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<Article> findAllArticleByMemberId(HttpSession session) {
-        Member member = (Member) session.getAttribute("member");
-        return articleService.findAllArticleByMemberId(member.getMbrId());
+    public List<Article> findAllArticle() {
+        return articleService.findAllArticle();
     }
+
+//    @GetMapping
+//    public List<Article> findAllArticleByMemberId(HttpSession session) {
+//        Member member = (Member) session.getAttribute("member");
+//        return articleService.findAllArticleByMemberId(member.getMbrId());
+//    }
 
     @PostMapping
     public void addNewArticle (@RequestBody Article article, HttpSession session) {

@@ -38,7 +38,8 @@ public class Article {
     @Column(name = "artimg4")
     private String artImg4;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "mbrid", referencedColumnName = "mbrid")
     private Member member;
 

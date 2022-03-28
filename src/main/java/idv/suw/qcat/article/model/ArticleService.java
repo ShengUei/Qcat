@@ -22,6 +22,10 @@ public class ArticleService {
         this.memberRepository = memberRepository;
     }
 
+    public  List<Article> findAllArticle() {
+        return articleRepository.findAll();
+    }
+
     public  List<Article> findAllArticleByMemberId(Long mbrid) {
         List<Article> articleList = articleRepository.findAllById(Collections.singleton(mbrid));
         if (articleList.isEmpty()) {
