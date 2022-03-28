@@ -19,14 +19,12 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping(path = "logIn")
-    public boolean checkIsMember(@RequestParam String account, @RequestParam String password, HttpSession session) {
+    @PostMapping(path = "login")
+    public void checkIsMember(@RequestParam String account, @RequestParam String password, HttpSession session) {
         Optional<Member> memberOptional = memberService.checkIsMember(account, password);
         if (memberOptional.isPresent()) {
             session.setAttribute("member", memberOptional.get());
-            return true;
         }
-        return false;
     }
 
     @PostMapping(path = "register")

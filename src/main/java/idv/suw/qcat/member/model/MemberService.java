@@ -22,11 +22,10 @@ public class MemberService {
                 && (password.hashCode() + memberOptional.get().getSalt()) == memberOptional.get().getEncrPwd()) {
             return memberOptional;
         }
-        return Optional.empty();
+        throw new IllegalStateException("This account or password is wrong");
     }
 
     public boolean registerNewMember(Member member) {
-        System.out.println(member.getAccount() + ", " + member.getEmail() + ", " + member.getPassword());
         if (!memberRepository.existsByAccount(member.getAccount())) {
             long salt = Instant.now().toEpochMilli();
             long encrPwd = member.getPassword().hashCode() + salt;

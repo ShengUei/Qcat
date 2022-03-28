@@ -100,4 +100,12 @@ public class Article {
     public void setArtImg4(String artImg4) {
         this.artImg4 = artImg4;
     }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 }

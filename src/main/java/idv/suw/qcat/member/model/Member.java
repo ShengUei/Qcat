@@ -41,6 +41,14 @@ public class Member {
     public Member() {
     }
 
+    public Long getMbrId() {
+        return mbrId;
+    }
+
+    public void setMbrId(Long mbrId) {
+        this.mbrId = mbrId;
+    }
+
     public String getAccount() {
         return account;
     }
