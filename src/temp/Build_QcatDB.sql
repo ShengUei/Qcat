@@ -8,7 +8,7 @@ Create Table member(
 	encrPwd BigInt Not Null,
 	salt BigInt Not Null,
 	email Varchar(100) Not Null,
-	username Varchar(100),
+	username Nvarchar(100),
 	birthday DateTime2(0),
 	mbrImg Varchar(Max),
 
