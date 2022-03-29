@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "article")
+@RequestMapping(path = "/api/article")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class ArticleController {
 

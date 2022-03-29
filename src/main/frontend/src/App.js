@@ -1,20 +1,21 @@
 import React from "react";
 // import logo from './logo.svg';
 // import './App.css';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import ArticleListComponent from "./components/ArticleListComponent";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import LogInComponent from "./components/LogInComponent";
 import RegisterNewMemberComponent from "./components/RegisterNewMemberComponent";
+import ArticleListComponent from "./components/ArticleListComponent";
 
 function App() {
     return (
-        <div className="container">
-            <RegisterNewMemberComponent/>
-            {/*<Router>*/}
-            {/*    <Switch>*/}
-            {/*        <Route path="/article" component={ArticleListComponent}></Route>*/}
-            {/*        <Route path="/member/register" component={RegisterNewMemberComponent}></Route>*/}
-            {/*    </Switch>*/}
-            {/*</Router>*/}
+        <div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<LogInComponent/>}/>
+                    <Route path="/member/register" element={<RegisterNewMemberComponent/>}/>
+                    <Route path="/article" element={<ArticleListComponent/>}/>
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }

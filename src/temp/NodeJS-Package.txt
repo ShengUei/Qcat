@@ -1,0 +1,24 @@
+Intro: CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+Install: npm install cors
+SetUp: in index.js {
+    var cors = require('cors')
+    app.use(cors())
+}
+
+Intro: React Router is a fully-featured client and server-side routing library for React, a JavaScript library for building user interfaces. React Router runs anywhere React runs; on the web, on the server with node.js, and on React Native.
+Install: npm install react-router-dom
+SetUp: {
+    import {BrowserRouter, Routes, Route} from "react-router-dom";
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="teams" element={<Teams />}>
+              <Route path=":teamId" element={<Team />} />
+              <Route path="new" element={<NewTeamForm />} />
+              <Route index element={<LeagueStandings />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+}

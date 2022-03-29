@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import ArticleListService from "../services/ArticleListService";
+import ArticleService from "../services/ArticleService";
 
 class ArticleListComponent extends Component {
 
     componentDidMount() {
-        ArticleListService.getArticleList()
+        ArticleService.getArticleList()
             .then((response) => {
                 this.setState({articles: response.data})
             })
