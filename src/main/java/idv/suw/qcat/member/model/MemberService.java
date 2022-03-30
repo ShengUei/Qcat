@@ -26,7 +26,11 @@ public class MemberService {
     }
 
     public boolean registerNewMember(Member member) {
-        if (!memberRepository.existsByAccount(member.getAccount())) {
+        if (member.getAccount().length() > 0 && member.getAccount() != null
+            && member.getPassword().length() > 0 && member.getPassword() != null
+            && member.getEmail().length() > 0 && member.getEmail() != null
+            && member.getBirthday() != null
+            && !memberRepository.existsByAccount(member.getAccount())) {
             long salt = Instant.now().toEpochMilli();
             long encrPwd = member.getPassword().hashCode() + salt;
             member.setEncrPwd(encrPwd);

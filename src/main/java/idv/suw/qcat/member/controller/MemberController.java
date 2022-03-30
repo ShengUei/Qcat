@@ -23,11 +23,13 @@ public class MemberController {
     }
 
     @PostMapping(path = "login")
-    public void checkIsMember(@RequestParam String account, @RequestParam String password, HttpSession session) {
-        Optional<Member> memberOptional = memberService.checkIsMember(account, password);
+    public ResponseEntity<String> checkIsMember(@RequestBody Member member, HttpSession session) {
+        Optional<Member> memberOptional = memberService.checkIsMember(member.getAccount(), member.getPassword());
         if (memberOptional.isPresent()) {
             session.setAttribute("member", memberOptional.get());
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+        return new ResponseEntity<>("登入失敗", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(path = "register")
@@ -36,7 +38,7 @@ public class MemberController {
         if (registerState) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("註冊失敗", HttpStatus.BAD_REQUEST);
     }
 
 }

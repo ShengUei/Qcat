@@ -3,8 +3,8 @@ import axios from "axios";
 const MEMBER_API_BASE_URL = "http://localhost:8080/api/member/";
 
 class MemberService {
-    logIn() {
-
+    login(member) {
+        return axios.post(MEMBER_API_BASE_URL + "login", member);
     }
 
     registerNewMember(member) {
