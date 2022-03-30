@@ -22,7 +22,7 @@ public class MemberService {
                 && (password.hashCode() + memberOptional.get().getSalt()) == memberOptional.get().getEncrPwd()) {
             return memberOptional;
         }
-        throw new IllegalStateException("This account or password is wrong");
+        return Optional.empty();
     }
 
     public boolean registerNewMember(Member member) {

@@ -1,0 +1,17 @@
+Client:
+    axios.get(API_BASE_URL, {withCredentials: true});
+    axios.post(API_BASE_URL, {withCredentials: true});
+    axios.put(API_BASE_URL, {withCredentials: true});
+    axios.delete(API_BASE_URL, {withCredentials: true});
+
+Server:
+    Use Filter to set response Header
+    response.setHeader("Access-Control-Allow-Credentials", "true");
+
+    response.setHeader("Access-Control-Allow-Origin", "Client_Server_URL");
+        or
+    @CrossOrigin(origins = "Client_Server_URL") in Controller
+
+    **************************************************
+    *** Access-Control-Allow-Origin can't set "*"  ***
+    **************************************************

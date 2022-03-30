@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -27,16 +25,16 @@ public class ArticleService {
     }
 
     public  List<Article> findAllArticleByMemberId(Long mbrid) {
-        List<Article> articleList = articleRepository.findAllById(Collections.singleton(mbrid));
-        if (articleList.isEmpty()) {
-            throw new IllegalStateException("No result");
+        if (!memberRepository.existsById(mbrid)) {
+            return new ArrayList<>();
         }
+        List<Article> articleList = articleRepository.findAllArticleByMemberId(mbrid);
         return articleList;
     }
 
     public void addNewArticle(Article article) {
         if (!memberRepository.existsById(article.getMember().getMbrId())) {
-            throw new IllegalStateException("This member isn't exists");
+//            throw new IllegalStateException("This member isn't exists");
         }
         articleRepository.save(article);
     }
