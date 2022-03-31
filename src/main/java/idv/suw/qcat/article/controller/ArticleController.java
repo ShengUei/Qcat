@@ -36,9 +36,6 @@ public class ArticleController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         List<Article> articles = articleService.findAllArticleByMemberId(member.getMbrId());
-        if (articles.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 

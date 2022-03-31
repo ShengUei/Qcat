@@ -23,7 +23,7 @@ class LogInComponent extends Component {
 
         MemberService.login(member)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 this.props.history.push('/home');
             })
             .catch((error) => {

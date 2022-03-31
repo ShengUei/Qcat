@@ -17,9 +17,11 @@ public class setHttpHeaderFilter extends HttpFilter {
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 //        System.out.println("request");
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setHeader("Access-Control-Allow-Credentials", "true");
+
         chain.doFilter(request, response);
-//        response.setHeader("Access-Control-Allow-Credentials", "true");
+
 //        System.out.println("response");
     }
 }
