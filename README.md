@@ -11,11 +11,11 @@
 
 #### 成果展示:
 
-登入畫面:
+- 登入畫面:
 
 ![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/login.png)
 
 
-文章畫面:
+- 文章畫面:
 
 ![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/homePage.png)
