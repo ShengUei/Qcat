@@ -8,6 +8,7 @@
   - 後端框架: [Spring Boot](https://spring.io/)
   - ORM框架: [Hibernate](https://hibernate.org/orm/)
   - 資料庫: [SQL Server](https://www.microsoft.com/en-us/sql-server/)
+  - 第三方API: [CKEditor5](https://ckeditor.com/ckeditor-5/)、[AXIOS](https://axios-http.com/)
 
 #### 成果展示:
 
