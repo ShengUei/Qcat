@@ -3,12 +3,15 @@ package idv.suw.qcat.article.model;
 import idv.suw.qcat.member.model.Member;
 import idv.suw.qcat.member.model.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -21,7 +24,8 @@ public class ArticleService {
     }
 
     public  List<Article> findAllArticle() {
-        return articleRepository.findAll();
+//        return articleRepository.findAll();
+        return articleRepository.findByOrderByArtPostTimeDesc();
     }
 
     public  List<Article> findAllArticleByMemberId(Long mbrid) {
@@ -32,10 +36,16 @@ public class ArticleService {
         return articleList;
     }
 
-    public void addNewArticle(Article article) {
-        if (!memberRepository.existsById(article.getMember().getMbrId())) {
+    public boolean addNewArticle(Article article) {
+//        if (!memberRepository.existsById(article.getMember().getMbrId())) {
 //            throw new IllegalStateException("This member isn't exists");
+//        }
+        try {
+            articleRepository.save(article);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        articleRepository.save(article);
     }
 }

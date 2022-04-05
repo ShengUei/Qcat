@@ -33,8 +33,8 @@ class RegisterNewMemberComponent extends Component {
 
         MemberService.registerNewMember(member)
             .then((response) => {
-                console.log(response)
-                // this.props.history.push('/article');
+                // console.log(response)
+                this.props.history.push('/article');
             })
              .catch((error) => {
                 // console.log(error.response.data)

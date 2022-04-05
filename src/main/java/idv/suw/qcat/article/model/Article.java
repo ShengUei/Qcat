@@ -39,7 +39,7 @@ public class Article {
     private String artImg4;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mbrid", referencedColumnName = "mbrid")
     private Member member;
 

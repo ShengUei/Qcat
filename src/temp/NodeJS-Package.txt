@@ -28,3 +28,8 @@ SetUp: {
         </Routes>
       </BrowserRouter>
 }
+
+npm install @ckeditor/ckeditor5-react
+npm add file:./ckeditor5
+
+npm install moment

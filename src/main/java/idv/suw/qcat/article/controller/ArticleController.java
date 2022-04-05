@@ -4,12 +4,13 @@ import idv.suw.qcat.article.model.Article;
 import idv.suw.qcat.article.model.ArticleService;
 import idv.suw.qcat.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,14 +36,23 @@ public class ArticleController {
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        List<Article> articles = articleService.findAllArticleByMemberId(member.getMbrId());
+        System.out.println("LogIn getMbrId: " + member.getMbrId());
+//        List<Article> articles = articleService.findAllArticleByMemberId(member.getMbrId());
+        List<Article> articles = articleService.findAllArticle();
         return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 
-    @PostMapping
-    public void addNewArticle (@RequestBody Article article, HttpSession session) {
+    @PostMapping(path = "addnewarticle")
+    public ResponseEntity<String> addNewArticle (HttpSession session, @RequestBody Article article) {
         Member member = (Member) session.getAttribute("member");
+        System.out.println("getMbrId: " + member.getMbrId());
         article.setMember(member);
-        articleService.addNewArticle(article);
+//        String artContent = article.getArtContent();
+        article.setArtPostTime(Timestamp.valueOf(LocalDateTime.now()));
+        boolean addNewArticleState = articleService.addNewArticle(article);
+        if (addNewArticleState) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>("文章建立失敗", HttpStatus.BAD_REQUEST);
     }
 }
