@@ -18,4 +18,4 @@
 
 - 文章畫面:
 
-![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/homePage.png)
+![image]()
