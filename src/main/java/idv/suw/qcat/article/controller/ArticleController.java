@@ -30,13 +30,24 @@ public class ArticleController {
 //        return articleService.findAllArticle();
 //    }
 
+    @GetMapping("{artId}")
+    public ResponseEntity<Article> findArticleById(HttpSession session,
+                                                   @PathVariable(name = "artId") Long artId) {
+        Member member = (Member) session.getAttribute("member");
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Article article = articleService.findArticleById(artId);
+        return new ResponseEntity<>(article, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Article>> findAllArticleByMemberId(HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        System.out.println("LogIn getMbrId: " + member.getMbrId());
+//        System.out.println("LogIn getMbrId: " + member.getMbrId());
 //        List<Article> articles = articleService.findAllArticleByMemberId(member.getMbrId());
         List<Article> articles = articleService.findAllArticle();
         return new ResponseEntity<>(articles, HttpStatus.OK);
@@ -45,7 +56,7 @@ public class ArticleController {
     @PostMapping(path = "addnewarticle")
     public ResponseEntity<String> addNewArticle (HttpSession session, @RequestBody Article article) {
         Member member = (Member) session.getAttribute("member");
-        System.out.println("getMbrId: " + member.getMbrId());
+//        System.out.println("getMbrId: " + member.getMbrId());
         article.setMember(member);
 //        String artContent = article.getArtContent();
         article.setArtPostTime(Timestamp.valueOf(LocalDateTime.now()));

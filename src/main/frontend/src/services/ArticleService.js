@@ -7,6 +7,10 @@ class ArticleService {
         return axios.get(ARTICLE_API_BASE_URL, {withCredentials: true});
     };
 
+    getArticle(artId) {
+        return axios.get(ARTICLE_API_BASE_URL + artId, {withCredentials: true});
+    };
+
     addNewArticle(article) {
         return axios.post(ARTICLE_API_BASE_URL + "addnewarticle", article, {withCredentials: true});
     }

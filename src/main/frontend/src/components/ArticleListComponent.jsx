@@ -10,6 +10,12 @@ class ArticleListComponent extends Component {
             articles: [],
             errMsg: ''
         };
+
+        this.articleDetailHandler = this.articleDetailHandler.bind(this);
+    }
+
+    articleDetailHandler(id) {
+        this.props.history.push(`/article/${id}`);
     }
 
     componentDidMount() {
@@ -43,8 +49,8 @@ class ArticleListComponent extends Component {
                                     <div className="row justify-content-center" style={{marginTop:20}}>
                                         <div className="col col-6">
                                             <div className="card shadow-sm" >
-                                                <div className="card-body">
-                                                    <div className="article" key={article.artid} >
+                                                <div className="card-body" key={article.artId}>
+                                                    <div className="article" onClick={() => this.articleDetailHandler(article.artId)}>
                                                         <p className="card-text">{article.member.username}</p>
                                                         <div dangerouslySetInnerHTML={{__html:article.artContent}}/>
                                                         {/*<svg className="bd-placeholder-img card-img-top" width="100%" height="225"*/}
@@ -55,9 +61,9 @@ class ArticleListComponent extends Component {
                                                         {/*</svg>*/}
                                                         <div className="d-flex justify-content-between align-items-center" >
                                                             <div className="btn-group">
-                                                                <button type="button" className="btn btn-sm btn-outline-secondary">Reply</button>
-                                                                <button type="button" className="btn btn-sm btn-outline-secondary">Retweet</button>
-                                                                <button type="button" className="btn btn-sm btn-outline-secondary">Like</button>
+                                                                {/*<button type="button" className="btn btn-sm btn-outline-secondary">Reply</button>*/}
+                                                                {/*<button type="button" className="btn btn-sm btn-outline-secondary">Retweet</button>*/}
+                                                                {/*<button type="button" className="btn btn-sm btn-outline-secondary">Like</button>*/}
                                                             </div>
                                                             <small className="text-muted">{moment(article.artPostTime).format('MM/DD A hh:mm')}</small>
                                                         </div>

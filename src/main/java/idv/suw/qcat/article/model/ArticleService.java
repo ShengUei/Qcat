@@ -23,6 +23,10 @@ public class ArticleService {
         this.memberRepository = memberRepository;
     }
 
+    public Article findArticleById(Long id) {
+        return articleRepository.findById(id).get();
+    }
+
     public  List<Article> findAllArticle() {
 //        return articleRepository.findAll();
         return articleRepository.findByOrderByArtPostTimeDesc();

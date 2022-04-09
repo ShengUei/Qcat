@@ -5,7 +5,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import LogInComponent from "./components/LogInComponent";
 import RegisterNewMemberComponent from "./components/RegisterNewMemberComponent";
 import ArticleListComponent from "./components/ArticleListComponent";
-import AddNewArticleComponent from "./components/AddNewArticleComponent";
+import ArticleComponent from "./components/ArticleComponent";
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
                 <Switch>
                     <Redirect exact from="/" to="/home"/>
                     <Route path="/home" component ={ArticleListComponent}/>
-                    <Route path="/add" component ={AddNewArticleComponent}/>
+                    <Route path="/article/:id" component ={ArticleComponent}/>
                     <Route path="/login" component ={LogInComponent}/>
                     <Route path="/register" component ={RegisterNewMemberComponent}/>
                 </Switch>

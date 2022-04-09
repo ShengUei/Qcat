@@ -46,6 +46,22 @@ public class Article {
     public Article() {
     }
 
+    public Long getArtId() {
+        return artId;
+    }
+
+    public void setArtId(Long artId) {
+        this.artId = artId;
+    }
+
+    public Long getMbrId() {
+        return mbrId;
+    }
+
+    public void setMbrId(Long mbrId) {
+        this.mbrId = mbrId;
+    }
+
     public Timestamp getArtPostTime() {
         return artPostTime;
     }
