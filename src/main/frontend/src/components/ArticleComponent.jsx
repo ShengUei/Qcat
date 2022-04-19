@@ -20,10 +20,10 @@ class ArticleComponent extends Component {
             artId: this.state.artId,
             cmtContent: this.state.comContent
         }
-        CommentService.writeComment(comment, artId)
+        CommentService.writeComment(comment, this.state.artId)
             .then()
             .catch((error) => {
-                if(error == 403) {
+                if(error === 403) {
                     this.props.history.push('/login');
                 }else {
                     alert("評論撰寫失敗");

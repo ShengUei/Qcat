@@ -8,7 +8,7 @@ class CommentService {
     }
 
     writeComment(comment, artId) {
-        return axios.post(COMMENT_API_BASE_URL + "writeComment" + "/" + artId, comment, {withCredentials: true});
+        return axios.post(COMMENT_API_BASE_URL + "writeComment/" + artId, comment, {withCredentials: true});
     }
 
 }

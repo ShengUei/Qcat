@@ -60,6 +60,9 @@ public class ArticleController {
         article.setMember(member);
 //        String artContent = article.getArtContent();
         article.setArtPostTime(Timestamp.valueOf(LocalDateTime.now()));
+
+        System.out.println("Base64: " + article.getArtImg1());
+
         boolean addNewArticleState = articleService.addNewArticle(article);
         if (addNewArticleState) {
             return new ResponseEntity<>(HttpStatus.OK);
