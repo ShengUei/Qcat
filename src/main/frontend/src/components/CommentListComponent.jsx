@@ -4,19 +4,41 @@ import moment from "moment";
 class CommentListComponent extends Component {
     constructor(props) {
         super(props);
+        this.setState({
+            commentList: []
+        })
     }
 
+    // componentDidMount() {
+    //     // console.log("this.props.artId: " + this.props.artId)
+    //     CommentService.getComments(this.props.artId)
+    //         .then((response) => {
+    //             // console.log("comment: " + response);
+    //             if(response.data === '') {
+    //                 this.setState({
+    //                     commentList: []
+    //                 })
+    //             } else {
+    //                 this.setState({commentList: response.data})
+    //             }
+    //             console.log("commentList: " + JSON.stringify(this.state.commentList))
+    //         })
+    //     //     .catch(
+    //     //     this.props.history.push('/login')
+    //     // )
+    // }
+
     render() {
-        return (
-            <div>
-                {
-                    props.commentList.map(
+                console.log("this.props.commentList: " + JSON.stringify(this.props.commentList))
+        let body
+        if (this.props.commentList !== '') {
+                body = this.props.commentList.map(
                         (comment) => {
                             return (
                                 <div className="row justify-content-center" style={{marginTop:20}}>
                                     <div className="col col-6">
                                         <div className="card shadow-sm" >
-                                            <div className="card-body" key={comment.artId}>
+                                            <div className="card-body" key={comment.cmtId}>
                                                 <div className="comment">
                                                     <div className="media text-muted pt-3">
                                                         <img
@@ -28,10 +50,10 @@ class CommentListComponent extends Component {
                                                         <strong className="text-gray-dark card-text" style={{marginLeft: 10}}>{comment.member.username}</strong>
                                                         <span className="text-gray-dark card-text">@{comment.member.account}</span>
                                                     </div>
-                                                    <div style={{marginTop: 20, marginBottom: 10}} dangerouslySetInnerHTML={{__html:comment.artContent}}/>
+                                                    <div style={{marginTop: 20, marginBottom: 10}} dangerouslySetInnerHTML={{__html:comment.cmtContent}}/>
                                                     {/*<img className="card-img-top" style={{marginTop: 10}} src={"http://localhost:8080/images/" + article.artImg1} alt={""} />*/}
                                                     <div className="d-flex justify-content-between align-items-center" >
-                                                        <small className="text-muted">{moment(comment.artPostTime).format('MM/DD A hh:mm')}</small>
+                                                        <small className="text-muted">{moment(comment.cmtPostTime).format('MM/DD A hh:mm')}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,7 +63,12 @@ class CommentListComponent extends Component {
                             )
                         }
                     )
-                }
+
+        }
+
+        return (
+            <div>
+                {body}
             </div>
         );
     }

@@ -54,17 +54,21 @@ class ArticleComponent extends Component {
             this.props.history.push('/login');
         });
 
-        CommentService.getComments(this.state.artId)
-            .then((response) => {
-                console.log("comment: " + response);
-                this.setState({
-                    commentList: response.data,
-                    // cmtUsername: response.data.member.username
-                })
-            })
-        //     .catch(
-        //     this.props.history.push('/login')
-        // )
+        // CommentService.getComments(this.state.artId)
+        //     .then((response) => {
+        //         // console.log("comment: " + response);
+        //         if(response.data === '') {
+        //             this.setState({
+        //                 commentList: []
+        //             })
+        //         } else {
+        //             this.setState({commentList: response.data})
+        //         }
+        //         // console.log("commentList: " + JSON.stringify(this.state.commentList))
+        //     })
+        // //     .catch(
+        // //     this.props.history.push('/login')
+        // // )
     }
 
     render() {
@@ -111,6 +115,7 @@ class ArticleComponent extends Component {
                                 <button type="button" className="btn btn-sm btn-outline-secondary"
                                     onClick={this.writeCommentHandler}>送出</button>
                             </div>
+                            {/*<CommentListComponent artId={this.state.artId}/>*/}
                             <CommentListComponent commentList={this.state.commentList}/>
                         </div>
                     </div>

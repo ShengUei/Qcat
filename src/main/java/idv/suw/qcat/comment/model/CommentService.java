@@ -23,10 +23,8 @@ public class CommentService {
     }
 
     public List<Comment> findAllCommentByArticleId(Long artId) {
-        idList = new ArrayList<>();
         if(articleRepository.existsById(artId)) {
-            idList.add(artId);
-            return commentRepository.findAllById(idList);
+            return commentRepository.findAllByArticleId(artId);
         }
         return null;
     }

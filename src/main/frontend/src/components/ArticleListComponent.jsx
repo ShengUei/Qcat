@@ -30,10 +30,12 @@ class ArticleListComponent extends Component {
                 } else {
                     this.setState({articles: response.data})
                 }
+                // console.log("articles: " + JSON.stringify(this.state.articles))
             }).catch((error) => {
             // console.log(error)
             this.props.history.push('/login');
         })
+
     }
 
     render() {
