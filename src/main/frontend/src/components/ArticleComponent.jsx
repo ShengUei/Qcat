@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ArticleService from "../services/ArticleService";
 import moment from "moment";
 import CommentService from "../services/CommentService";
+import CommentListComponent from "./CommentListComponent";
 
 class ArticleComponent extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class ArticleComponent extends Component {
         this.state = {
             article: '',
             artId: this.props.match.params.id,
+            member: '',
             comContent: '',
             commentList: '',
             errMsg: ''
@@ -38,29 +40,31 @@ class ArticleComponent extends Component {
                 if(response.data === '') {
                     this.setState({
                         article: '',
-                        username: '',
+                        member:'',
                         errMsg: "No result"
                     })
                 } else {
                     this.setState({
                         article: response.data,
-                        username: response.data.member.username
+                        member: response.data.member
                     })
                 }
             }).catch((error) => {
             // console.log(error);
             this.props.history.push('/login');
-        })
+        });
 
         CommentService.getComments(this.state.artId)
             .then((response) => {
+                console.log("comment: " + response);
                 this.setState({
                     commentList: response.data,
-                    cmtUsername: response.data.member.username
+                    // cmtUsername: response.data.member.username
                 })
-            }).catch(
-            this.props.history.push('/login')
-        )
+            })
+        //     .catch(
+        //     this.props.history.push('/login')
+        // )
     }
 
     render() {
@@ -73,14 +77,18 @@ class ArticleComponent extends Component {
                             <div className="card shadow-sm" >
                                 <div className="card-body">
                                     <div className="article" >
-                                        <p className="card-text">{this.state.username}</p>
-                                        <div dangerouslySetInnerHTML={{__html:this.state.article.artContent}}/>
-                                        {/*<svg className="bd-placeholder-img card-img-top" width="100%" height="225"*/}
-                                        {/*     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"*/}
-                                        {/*     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>*/}
-                                        {/*    <rect width="100%" height="100%" fill="#55595c"/>*/}
-                                        {/*    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>*/}
-                                        {/*</svg>*/}
+                                        <div className="media text-muted pt-3">
+                                            <img
+                                                data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1"
+                                                alt="" className="mr-2 rounded"
+                                                src="http://localhost:8080/images/profile.png"
+                                                data-holder-rendered="true"
+                                                style={{width: 50, height: 50, borderRadius: 50}}/>
+                                            <strong className="text-gray-dark card-text" style={{marginLeft: 10}}>{this.state.member.username}</strong>
+                                            <span className="text-gray-dark card-text">@{this.state.member.account}</span>
+                                        </div>
+                                        <div style={{marginTop: 20, marginBottom: 10}} dangerouslySetInnerHTML={{__html:this.state.article.artContent}}/>
+                                        <img className="card-img-top" style={{marginTop: 10}} src={"http://localhost:8080/images/" + this.state.article.artImg1} alt={""} />
                                         <div className="d-flex justify-content-between align-items-center" >
                                             <div className="btn-group">
                                                 {/*<button type="button" className="btn btn-sm btn-outline-secondary">Reply</button>*/}
@@ -93,7 +101,7 @@ class ArticleComponent extends Component {
                                 </div>
                             </div>
                             <div className="comment-input card"  >
-                                <textarea maxLength={300} rows={3} placeholder={"請在此輸入評論"}
+                                <textarea maxLength={300} rows={3} placeholder={"請在此撰寫評論"}
                                           style={{resize: 'none'}}
                                   onChange={(event) => {
                                   this.setState({comContent: event.target.value})
@@ -101,13 +109,12 @@ class ArticleComponent extends Component {
                             </div>
                             <div className="text-center">
                                 <button type="button" className="btn btn-sm btn-outline-secondary"
-                                    onClick={this.writeCommentHandler}
-                                >送出</button>
+                                    onClick={this.writeCommentHandler}>送出</button>
                             </div>
+                            <CommentListComponent commentList={this.state.commentList}/>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

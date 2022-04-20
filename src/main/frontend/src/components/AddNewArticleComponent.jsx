@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import Editor from 'ckeditor5-custom-build/build/ckeditor';
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import articleService from "../services/ArticleService";
 
 function convertFile(file) {
@@ -48,7 +48,10 @@ class AddNewArticleComponent extends Component {
         articleService.addNewArticle(article)
             .then((response) => {
                 // console.log(response)
-                this.props.history.push('/article');
+                alert("新增文章成功");
+                window.location.reload();
+                document.querySelector("#textarea").value = '';
+                document.querySelector("#img1").src = '';
             })
             .catch((error) => {
                     // console.log(error.response.data)

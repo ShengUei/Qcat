@@ -3,13 +3,19 @@ package idv.suw.qcat.article.controller;
 import idv.suw.qcat.article.model.Article;
 import idv.suw.qcat.article.model.ArticleService;
 import idv.suw.qcat.member.model.Member;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -61,7 +67,8 @@ public class ArticleController {
 //        String artContent = article.getArtContent();
         article.setArtPostTime(Timestamp.valueOf(LocalDateTime.now()));
 
-        System.out.println("Base64: " + article.getArtImg1());
+        String fileName = saveImageBase64ToLocal(article.getArtImg1());
+        article.setArtImg1(fileName);
 
         boolean addNewArticleState = articleService.addNewArticle(article);
         if (addNewArticleState) {
@@ -69,4 +76,22 @@ public class ArticleController {
         }
         return new ResponseEntity<>("文章建立失敗", HttpStatus.BAD_REQUEST);
     }
+
+    private String saveImageBase64ToLocal(String imgBase64) {
+        String[] splitByComma = imgBase64.split(",");
+        String fileExtension = splitByComma[0].split("/")[1].split(";")[0];
+        String fileName = String.format("%s.%s", Instant.now().toEpochMilli(), fileExtension);
+        byte[] byteArray = Base64.decodeBase64(splitByComma[1]);
+        try {
+            String pathname = ResourceUtils.getURL("classpath:").getPath() + "static/images/" + fileName;
+//            System.out.println("pathname: " + pathname);
+            FileUtils.writeByteArrayToFile(new File(pathname), byteArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
 }
+
+
