@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/member")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = {"http://localhost:3000/"})
 public class MemberController {
 
     private final MemberService memberService;
@@ -33,6 +33,12 @@ public class MemberController {
         return new ResponseEntity<>("登入失敗", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping(path = "signOut")
+    public ResponseEntity<String> signOut(HttpSession session) {
+        session.invalidate();
+        return new ResponseEntity<>("登出成功", HttpStatus.OK);
+    }
+
     @PostMapping(path = "register")
     public ResponseEntity<String> registerNewMember(@RequestBody Member member) {
         boolean registerState = memberService.registerNewMember(member);
@@ -40,6 +46,15 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>("註冊失敗", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(path = "getMemberProfiles")
+    public ResponseEntity<Member> getMemberProfiles(HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        if (member != null) {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 }

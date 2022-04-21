@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @RequestMapping(path = "/api/comment/")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = {"http://localhost:3000/"})
 public class CommentController {
 
     private final ArticleService articleService;
@@ -57,6 +59,7 @@ public class CommentController {
         }
         comment.setMember(member);
         comment.setArticle(article);
+        comment.setCmtPostTime(Timestamp.valueOf(LocalDateTime.now()));
         if(commentService.addNewComment(comment)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }

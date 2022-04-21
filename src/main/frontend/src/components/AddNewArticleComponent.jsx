@@ -67,7 +67,7 @@ class AddNewArticleComponent extends Component {
         return (
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col col-6">
+                    <div className="col col-6" style={{marginTop: 20}} >
                         <div className="card shadow-sm">
                             <div className="card-body" >
                                 <div className="article" >

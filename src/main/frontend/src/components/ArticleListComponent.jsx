@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ArticleService from "../services/ArticleService";
 import AddNewArticleComponent from "./AddNewArticleComponent";
 import moment from "moment";
+import LogoComponent from "./LogoComponent";
+import UserComponent from "./UserComponent";
 
 class ArticleListComponent extends Component {
     constructor(props) {
@@ -41,6 +43,8 @@ class ArticleListComponent extends Component {
     render() {
         return (
             <div>
+                <LogoComponent/>
+                <UserComponent/>
                 <AddNewArticleComponent/>
                 <div className="article-list container">
                     <p className="errMsg" style={{color: "red"}}>{this.state.errMsg}</p>

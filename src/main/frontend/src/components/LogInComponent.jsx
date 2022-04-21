@@ -31,6 +31,9 @@ class LogInComponent extends Component {
                     this.setState({
                         errMsg: error.response.data
                     });
+                    alert(this.state.errMsg);
+                    document.querySelector("[name=account]").value = '';
+                    document.querySelector("[name=password]").value = '';
                 }
             );
     }
@@ -55,7 +58,7 @@ class LogInComponent extends Component {
                     <div className="register-new-member">
                         <form className="needs-validation" noValidate>
                             <h1 className="h3 mb-3 fw-normal">會員登入</h1>
-                            <p className="errMsg" style={{color: "red"}}>{this.state.errMsg}</p>
+                            {/*<p className="errMsg" style={{color: "red"}}>{this.state.errMsg}</p>*/}
                             <div className="form-floating">
                                 <input type="account" className="form-control" id="floatingInput" name="account"
                                        placeholder="帳號" required

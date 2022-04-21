@@ -9,34 +9,15 @@ class CommentListComponent extends Component {
         })
     }
 
-    // componentDidMount() {
-    //     // console.log("this.props.artId: " + this.props.artId)
-    //     CommentService.getComments(this.props.artId)
-    //         .then((response) => {
-    //             // console.log("comment: " + response);
-    //             if(response.data === '') {
-    //                 this.setState({
-    //                     commentList: []
-    //                 })
-    //             } else {
-    //                 this.setState({commentList: response.data})
-    //             }
-    //             console.log("commentList: " + JSON.stringify(this.state.commentList))
-    //         })
-    //     //     .catch(
-    //     //     this.props.history.push('/login')
-    //     // )
-    // }
-
     render() {
-                console.log("this.props.commentList: " + JSON.stringify(this.props.commentList))
+                // console.log("this.props.commentList: " + JSON.stringify(this.props.commentList))
         let body
         if (this.props.commentList !== '') {
                 body = this.props.commentList.map(
                         (comment) => {
                             return (
                                 <div className="row justify-content-center" style={{marginTop:20}}>
-                                    <div className="col col-6">
+                                    <div className="col  col-11">
                                         <div className="card shadow-sm" >
                                             <div className="card-body" key={comment.cmtId}>
                                                 <div className="comment">
@@ -63,11 +44,10 @@ class CommentListComponent extends Component {
                             )
                         }
                     )
-
         }
 
         return (
-            <div>
+            <div className="commentList card" style={{marginTop: 20}}>
                 {body}
             </div>
         );

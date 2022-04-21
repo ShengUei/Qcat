@@ -3,6 +3,8 @@ import ArticleService from "../services/ArticleService";
 import moment from "moment";
 import CommentService from "../services/CommentService";
 import CommentListComponent from "./CommentListComponent";
+import LogoComponent from "./LogoComponent";
+import UserComponent from "./UserComponent";
 
 class ArticleComponent extends Component {
     constructor(props) {
@@ -15,6 +17,8 @@ class ArticleComponent extends Component {
             commentList: '',
             errMsg: ''
         };
+
+        this.writeCommentHandler = this.writeCommentHandler.bind(this);
     }
 
     writeCommentHandler() {
@@ -23,11 +27,15 @@ class ArticleComponent extends Component {
             cmtContent: this.state.comContent
         }
         CommentService.writeComment(comment, this.state.artId)
-            .then()
+            .then((response) => {
+                alert("評論撰寫成功");
+                window.location.reload();
+                document.querySelector("#textarea").value = '';
+            })
             .catch((error) => {
                 if(error === 403) {
                     this.props.history.push('/login');
-                }else {
+                }else if (error === 404){
                     alert("評論撰寫失敗");
                 }
             })
@@ -54,26 +62,28 @@ class ArticleComponent extends Component {
             this.props.history.push('/login');
         });
 
-        // CommentService.getComments(this.state.artId)
-        //     .then((response) => {
-        //         // console.log("comment: " + response);
-        //         if(response.data === '') {
-        //             this.setState({
-        //                 commentList: []
-        //             })
-        //         } else {
-        //             this.setState({commentList: response.data})
-        //         }
-        //         // console.log("commentList: " + JSON.stringify(this.state.commentList))
-        //     })
-        // //     .catch(
-        // //     this.props.history.push('/login')
-        // // )
+        CommentService.getComments(this.state.artId)
+            .then((response) => {
+                // console.log("comment: " + response);
+                if(response.data === '') {
+                    this.setState({
+                        commentList: []
+                    })
+                } else {
+                    this.setState({commentList: response.data})
+                }
+                // console.log("commentList: " + JSON.stringify(this.state.commentList))
+            })
+        //     .catch(
+        //     this.props.history.push('/login')
+        // )
     }
 
     render() {
         return (
             <div>
+                <LogoComponent/>
+                <UserComponent/>
                 <div className="article container">
                     <p className="errMsg" style={{color: "red"}}>{this.state.errMsg}</p>
                     <div className="row justify-content-center" style={{marginTop:20}}>
@@ -115,7 +125,6 @@ class ArticleComponent extends Component {
                                 <button type="button" className="btn btn-sm btn-outline-secondary"
                                     onClick={this.writeCommentHandler}>送出</button>
                             </div>
-                            {/*<CommentListComponent artId={this.state.artId}/>*/}
                             <CommentListComponent commentList={this.state.commentList}/>
                         </div>
                     </div>
