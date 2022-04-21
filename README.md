@@ -16,7 +16,19 @@
 
 ![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/login.png)
 
+- 註冊畫面:
+
+![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/Qcat-registry.png)
+
 
 - 文章畫面:
 
-![image](https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/home.png)
+<img src="https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/Qcat-Home-1.png" width="1200">
+
+<img src="https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/Qcat-Home-2.png" width="1200">
+
+- 評論畫面:
+
+<img src="https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/Qcat-Article-1.png" width="1200">
+
+<img src="https://github.com/ShengUei/Qcat/blob/ReatJS_test/image/Qcat-Article-2.png" width="1200">
